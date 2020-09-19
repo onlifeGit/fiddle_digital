@@ -1,0 +1,55 @@
+﻿@model fiddle_digital.ViewModels.ArticleCVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>ArticleCVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Body</label>
+                <div class="form-group">
+                    @Html.TextAreaFor(m => m.Body, new { rows = "20", style = "resize:none;width:400px;", placeholder = Html.DisplayNameFor(m => m.Body), @class = "form-control input-lg textarea-editor" })
+                </div>
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsDisabled" /> @Html.DisplayNameFor(model => model.IsDisabled)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SOrder" class="control-label"></label>
+                <input asp-for="SOrder" class="form-control" />
+                <span asp-validation-for="SOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">Back to List</a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+    <script src="/basejs/script-custom-editor.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

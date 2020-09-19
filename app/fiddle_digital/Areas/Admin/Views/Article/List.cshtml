@@ -1,0 +1,76 @@
+﻿@model IEnumerable<fiddle_digital.ViewModels.ArticleVM>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-default">Create New</a>
+</p>
+<hr class="col-md-12">
+
+@if (Model != null && Model.Count() != 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="col-md-12" style="margin: 10px 0 10px 0">
+            <div class="col-md-3">
+                <strong>
+                    @Html.DisplayNameFor(model => model.Title):
+                </strong>
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.Title)
+            </div>
+        </div>
+        <div class="col-md-12" style="margin: 10px 0 10px 0">
+            <iframe srcdoc="@item.Body" width="600" , height="400"></iframe>
+        </div>
+        <div class="col-md-12" style="margin: 10px 0 10px 0">
+            <div class="col-md-3">
+                <strong>
+                    @Html.DisplayNameFor(model => model.CreatedOn):
+                </strong>
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </div>
+        </div>
+        <div class="col-md-12" style="margin: 10px 0 10px 0">
+            <div class="col-md-3">
+                <strong>
+                    @Html.DisplayNameFor(model => model.SOrder):
+                </strong>
+            </div>
+            @if (item.SOrder != null)
+            {
+                <div class="col-md-9">
+                    @Html.DisplayFor(modelItem => item.SOrder)
+                </div>
+            }
+            else
+            {
+                <div class="col-md-9">
+                    <span>
+                        None
+                    </span>
+                </div>
+            }
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-12" style="margin: 10px 0 10px 0">
+                <div style="display: flex; position:relative; left:20%">
+                    @Html.ActionLink("Edit", "Edit", new { item.Id }, new { @class = "btn btn-warning", @style = "margin: 5px 5px 5px 5px" })
+                    <a id="@item.Id" class="btn btn-danger delete-prompt" style="margin: 5px 5px 5px 5px" href="/admin/@StringHelpers.CutController(nameof(ArticleController))/@nameof(ArticleController.Delete)/">Delete</a>
+                </div>
+            </div>
+        </div>
+        <hr class="col-md-12">
+
+    }
+}
+
+@Modal.DeleteModal()

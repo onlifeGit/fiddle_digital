@@ -1,0 +1,62 @@
+﻿@model IEnumerable<fiddle_digital.ViewModels.ServiceEmailVM>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDisabled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDisabled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SOrder)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { item.Id }, new { @class = "btn btn-warning", @style = "margin: 5px 5px 5px 5px" })
+                    <a id="@item.Id" class="btn btn-danger delete-prompt" style="margin: 5px 5px 5px 5px" href="/admin/@StringHelpers.CutController(nameof(ServiceEmailController))/@nameof(ServiceEmailController.Delete)/">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Modal.DeleteModal()
